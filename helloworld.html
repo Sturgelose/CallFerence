@@ -13,6 +13,9 @@
 
   $(document).ready(function() {
 
+    // Compatibility shim
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
     // Create new Peer with server on herokuapp
 
     peer1 = new Peer({　host:'lionroar.herokuapp.com', secure:true, port:443, debug:true});
@@ -53,13 +56,14 @@
     $('#browsers').text(navigator.userAgent);
   });
 
+  display("Your browser doesn't support getUserMedia.");
 
 </script>
 <style>
   #browsers {
     font-weight: 600;
   }
-  .browserinfo {
+  .display {
     padding: 20px;
     border: 1px solid #ccc;
     background-color: #f8f8f8;
@@ -74,7 +78,7 @@
   <h1><span id="peerid"></span>
   <span class="label label-success" id="helloworld"></span></h1>
 
-    <div class="browserinfo">
+    <div class="display">
     Your browser version: <span id="browsers"></span><br>
     Currently <strong>Firefox 22+ and Google Chrome 26.0.1403.0 or above</strong> is
     required.</strong></div>
