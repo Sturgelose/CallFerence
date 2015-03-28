@@ -54,16 +54,19 @@
 
     // Show browser version
     $('#browsers').text(navigator.userAgent);
-  });
 
-  display("Your browser doesn't support getUserMedia.");
+    var peers = {};
+    peers[0] = {id:0};
+    peers[1] = {id:1};
+
+  });
 
 </script>
 <style>
   #browsers {
     font-weight: 600;
   }
-  .display {
+  #display {
     padding: 20px;
     border: 1px solid #ccc;
     background-color: #f8f8f8;
@@ -78,7 +81,7 @@
   <h1><span id="peerid"></span>
   <span class="label label-success" id="helloworld"></span></h1>
 
-    <div class="display">
+    <div id="display">
     Your browser version: <span id="browsers"></span><br>
     Currently <strong>Firefox 22+ and Google Chrome 26.0.1403.0 or above</strong> is
     required.</strong></div>
