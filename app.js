@@ -20,6 +20,10 @@ init();
 
 // Start everything up
 function init() {
+
+  console.log("peer starts to launch");
+
+
   if (!navigator.getUserMedia) return unsupported();
 
   // Get access to the microphone
@@ -138,5 +142,5 @@ function unsupported() {
 }
 
 function display(message) {
-  $('<div />').html(message).appendTo('#display');
+  $('#display').append(message+'</br>');
 }
