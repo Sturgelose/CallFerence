@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title>PeerJS Hello World Code Example</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Language" content="en-us">
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script src="http://cdn.peerjs.com/0.3/peer.js"></script>
+
+<style>
+    button {
+        margin: 0 20px 0 0;
+        width: 83px;
+    }
+
+    button#hangupButton {
+        margin: 0;
+    }
+
+    video {
+        height: 225px;
+        margin: 0 0 20px 0;
+        width: calc(50% - 12px);
+    }
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+    <span id="peerid"></span>
+
+    <div>
+        <button id="startButton">Start</button>
+        <button id="callButton">Call</button>
+        <button id="hangupButton">Hang Up</button>
+    </div>
+
+    <audio controls autoplay id="audio"></audio>
+
+    <label for="checkbox1">Is receiver?</label><input type="checkbox" id="checkbox1" /> <br />
+</div>
+
+<script>
+
+    var startButton = document.getElementById('startButton');
+    var callButton = document.getElementById('callButton');
+    var hangupButton = document.getElementById('hangupButton');
+    var checkbox = document.getElementById('checkbox1');
+    var audio = window.audio = document.getElementById('audio');
+
+    var peer;
+    var isEndpoint;
+
+    callButton.disabled = true;
+    hangupButton.disabled = true;
+    startButton.onclick = start;
+    callButton.onclick = call;
+    //hangupButton.onclick = hangup;
+
+
+    function start(){
+
+        // Compatibility shim
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+        checkbox.disabled = true;
+        isEndpoint = checkbox.checked;
+
+        // Create new Peer with server on herokuapp
+
+        if (isEndpoint)
+            peer = new Peer('endpoint',{　host:'lionroar.herokuapp.com', secure:true, port:443, debug:true});
+        else
+            peer = new Peer({　host:'lionroar.herokuapp.com', secure:true, port:443, debug:true});
+
+
+
+        // The `open` event signifies that the Peer is ready to connect with other
+        // Peers and, if we didn't provide the Peer with an ID, that an ID has been
+        // assigned by the server.
+        peer.on('open', function(id){
+            $('#peerid').append(id);
+            // Only allow to call if it's a client
+            if (!isEndpoint)
+                callButton.disabled = false;
+        });
+
+        // Wait for a connection from the second peer.
+        peer.on('call', function(call) {
+            navigator.getUserMedia({video: false, audio: true}, function(stream) {
+                call.answer(stream); // Answer the call with an A/V stream.
+                call.on('stream', function(remoteStream) {
+                    audio.src = (URL || webkitURL || mozURL).createObjectURL(stream);
+                });
+            }, function(err) {
+                console.log('Failed to get local stream' ,err);
+            });
+        });
+
+        // Show browser version
+        $('#browsers').text(navigator.userAgent);
+
+    }
+
+    function call(){
+        if (!isEndpoint){
+
+            var constraints = window.constraints = {
+                audio: true,
+                video: false
+            };
+            if (navigator.getUserMedia)
+                navigator.getUserMedia(constraints, successCallback, errorCallback);
+        }
+    }
+
+    function successCallback(stream) {
+        peer.call('endpoint',stream);
+    }
+
+    function errorCallback(error) {
+        console.log('navigator.getUserMedia error: ', error);
+    }
+
+
+
+</script>
+
+</body>
+</html>

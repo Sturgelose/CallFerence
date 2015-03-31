@@ -122,6 +122,7 @@ function startCall(peerID) {
 
 function callPeer(peerId) {
   display('Calling ' + peerId +'...');
+  var peer = getPeer(peerId);
   peer.outgoing = me.call(peerId, myStream);
 
   peer.outgoing.on('error', function(err) {
