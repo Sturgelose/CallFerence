@@ -92,14 +92,11 @@
 
         // Wait for a connection from the second peer.
         peer.on('call', function(call) {
-            navigator.getUserMedia({video: false, audio: true}, function(stream) {
-                call.answer(stream); // Answer the call with an A/V stream.
-                call.on('stream', function(remoteStream) {
-                    audio.src = (URL || webkitURL || mozURL).createObjectURL(stream);
-                });
-            }, function(err) {
-                console.log('Failed to get local stream' ,err);
-            });
+			call.answer();
+			call.on('stream', function(stream){
+				audio.src = (URL || webkitURL || mozURL).createObjectURL(stream);
+			})
+			
         });
 
         // Show browser version

@@ -117,6 +117,7 @@ function playStream(stream) {
 
 // connected to PeerJS, i'm able to call other peers
 function startCall(peerID) {
+  console.log("start to call "+peerID);
   callPeer(peerID);
 }
 

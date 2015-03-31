@@ -10,11 +10,20 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script src="http://cdn.peerjs.com/0.3/peer.js"></script>
 <script src="./app.js"></script>
+<script>
+// start DOM
+$(function() {
+  $('#connect_button').click(function(){
+      var peerid = $('#peerid_input').val();
+      startCall(peerid);
+  });
+});
+</script>
 </head>
 
 <body>
-  <input type="text" class="input" id="peerid" placeholder="id"/>
-  <button type="button" class="btn btn-lg btn-success">Connect</button>
+  <input type="text" class="input" id="peerid_input" placeholder="id"/>
+  <button type="button" class="btn btn-lg btn-success" id="connect_button">Connect</button>
   <div class="jumbotron" id="display"></div>
 </body>
 </html>
