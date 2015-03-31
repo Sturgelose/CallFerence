@@ -1,0 +1,7 @@
+{
+  "name": "callference",
+  "main": "server.js",
+  "dependencies": {
+    "express": "latest"
+  }
+}
