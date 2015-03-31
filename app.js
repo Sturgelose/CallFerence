@@ -33,8 +33,8 @@ function init() {
     connectToPeerJS(function(err) {
       if (err) return;
 
-      // connected to PeerJS, i'm going to call other peers
-      peers.forEach(callPeer);
+      //TODO: start to call other peers?
+
     });
   });
 }
@@ -115,10 +115,13 @@ function playStream(stream) {
   audio[0].src = (URL || webkitURL || mozURL).createObjectURL(stream);
 }
 
+// connected to PeerJS, i'm able to call other peers
+function startCall(peerID) {
+  callPeer(peerID);
+}
 
-
-function callPeer(peer) {
-  display('Calling ' + peer.id + '...');
+function callPeer(peerId) {
+  display('Calling ' + peerId +'...');
   peer.outgoing = me.call(peerId, myStream);
 
   peer.outgoing.on('error', function(err) {
