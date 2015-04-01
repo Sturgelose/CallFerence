@@ -1,6 +1,8 @@
 var express    = require('express');
 var path = require('path');
 var app        = express();
+
+app.set('port', (process.env.PORT || 5000));
 app.use(express.static(path.join(__dirname, 'public')));
 
 var router = express.Router();
@@ -14,5 +16,6 @@ router.get('/', function(req, res) {
 
 app.use('/', router);
 
-app.listen(8080);
-console.log('Listening on 8080');
+app.listen(app.get('port'), function() {
+  console.log("Node app is running at localhost:" + app.get('port'));
+});
