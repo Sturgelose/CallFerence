@@ -16,10 +16,10 @@ var myStream;
 //}
 var peers = {};
 
-init();
+//init(false);
 
 // Start everything up
-function init() {
+function init(isEndpoint) {
 
   console.log("peer starts to launch");
 
@@ -30,7 +30,7 @@ function init() {
   getLocalAudioStream(function(err, stream) {
     if (err || !stream) return;
 
-    connectToPeerJS(function(err) {
+    connectToPeerJS(isEndpoint, function(err) {
       if (err) return;
 
       //TODO: start to call other peers?
@@ -61,9 +61,12 @@ function getLocalAudioStream(cb) {
 
 
 // Connect to PeerJS and get an ID
-function connectToPeerJS(cb) {
+function connectToPeerJS(isEndpoint, cb) {
   display('Connecting to PeerJS...');
-  me = new Peer({host:'lionroar.herokuapp.com', secure:true, port:443, debug:true});
+  if (isEndpoint)
+    me = new Peer('endpoint',{host:'lionroar.herokuapp.com', secure:true, port:443, debug:true});
+  else
+    me = new Peer({host:'lionroar.herokuapp.com', secure:true, port:443, debug:true});
 
   // when someone initiates a call via PeerJS
   //Set listeners for peer events. Emitted when a remote peer attempts to call you.
