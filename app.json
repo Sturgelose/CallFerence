@@ -1,0 +1,7 @@
+{
+  "name": "Spaceify Callferenece",
+  "description": "webrtc peer to peer audio talk to deploy on spaceify.org",
+  "repository": "https://github.com/Sturgelose/CallFerence",
+  "logo": "http://node-js-sample.herokuapp.com/node.svg",
+  "keywords": ["node", "webrtc", "peerjs"]
+}
