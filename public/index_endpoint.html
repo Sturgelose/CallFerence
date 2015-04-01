@@ -91,12 +91,13 @@
         });
 
         // Wait for a connection from the second peer.
+        if (isEndpoint)
         peer.on('call', function(call) {
 			call.answer();
 			call.on('stream', function(stream){
 				audio.src = (URL || webkitURL || mozURL).createObjectURL(stream);
 			})
-			
+
         });
 
         // Show browser version

@@ -26,17 +26,19 @@ function init(isEndpoint) {
 
   if (!navigator.getUserMedia) return unsupported();
 
-  // Get access to the microphone
-  getLocalAudioStream(function(err, stream) {
-    if (err || !stream) return;
+  connectToPeerJS(isEndpoint, function(err) {
+    if (err) return;
+    if (!isEndpoint)
+    {
+      getLocalAudioStream(function(err, stream){
+        if (err || !stream) return;
 
-    connectToPeerJS(isEndpoint, function(err) {
-      if (err) return;
+      });
+    }
 
-      //TODO: start to call other peers?
-
-    });
   });
+
+
 }
 
 // Get access to the microphone, return either an Error or audioStream
@@ -70,24 +72,27 @@ function connectToPeerJS(isEndpoint, cb) {
 
   // when someone initiates a call via PeerJS
   //Set listeners for peer events. Emitted when a remote peer attempts to call you.
-  me.on('call', function(call){
-    display('incoming call from ' + call.peer);
+  if (isEndpoint)
+  {
+      me.on('call', function(call){
+        display('incoming call from ' + call.peer);
 
-    // Must first answer the call, providing our mediaStream
-    call.answer(myStream);
+        // Must first answer the call, providing our mediaStream
+        call.answer();
 
-    // Then lister for stream event
-    // call.peer is the ID of the peer on the other end of this connection.
-    // keep track of the incoming call and put it into peers list
-    var peer = getPeer(call.peer);
-    peer.incoming = call;
-    //equals to peer.incoming.on('stream', function(stream){})
-    call.on('stream', function(stream) {
-      // `stream` is the MediaStream of the remote peer.
-      // Here you'd add it to an HTML video/canvas element.
-      addIncomingStream(peer, stream);
-    });
-  });
+        // Then lister for stream event
+        // call.peer is the ID of the peer on the other end of this connection.
+        // keep track of the incoming call and put it into peers list
+        var peer = getPeer(call.peer);
+        peer.incoming = call;
+        //equals to peer.incoming.on('stream', function(stream){})
+        call.on('stream', function(stream) {
+          // `stream` is the MediaStream of the remote peer.
+          // Here you'd add it to an HTML video/canvas element.
+          addIncomingStream(peer, stream);
+        });
+      });
+    }
 
   // when i open up (for calling others)
   // Emitted when a connection to the PeerServer is established.
