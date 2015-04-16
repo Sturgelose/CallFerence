@@ -100,6 +100,8 @@ function connectToPeerJS(isEndpoint, cb) {
     display('Connected.');
     display('ID: ' + me.id);
     cb && cb(null, me);
+
+    $('#call_button').prop('disabled', false);
   });
 
   me.on('error', function(err) {
