@@ -23,7 +23,7 @@
 			
 			self.onUrlGiven = function()
 				{
-				var givenUrl = document.getElementById("urlfield").value;
+				var givenUrl = "http://10.0.0.1:5000/speaker.html";
                         	var urlViewer=spaceify.getConnection("spaceify.org/services/urlviewer");
 				urlViewer.callRpc("showUrl",[givenUrl,null,null],this, null);
 				};		
@@ -65,13 +65,9 @@
 <body>
 	<div class="slideTile">
 		<div class="container" id="container">
-			Enter URL
-			 <div>
-				<input type="text" name="urlfield" id="urlfield"></input>
-			</div>
-				
+							
 			<div>	
-				<input type="button" onclick="urlViewerTile.onUrlGiven();" value="Show page on big screen"></input>
+				<input type="button" onclick="urlViewerTile.onUrlGiven();" value="Start CallFerence"></input>
 			</div> 	
 		</div>
 	</div>

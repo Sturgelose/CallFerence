@@ -1,72 +1,52 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>
-			Test Page for the game client
-		</title>
-		<script type="text/javascript" src="callbackbuffer.js"></script>
-		<script type="text/javascript" src="websocketconnection.js"></script>
-		<script type="text/javascript" src="rpccommunicator.js"></script>
-		<script type="text/javascript" src="websocketrpcconnection.js"></script>
-		<script type="text/javascript" src="gameclient.js"></script>
-		
-		<script type="text/javascript">
-		
-		function DemoController()
-			{
-			var self = this;
-			
-			self.setStickPosition = function(position)
-				{
-				console.log("DemoController::setStickPosition() "+position);
-				};
-			
-			self.getStickPosition = function(connectionId, callback)
-				{
-				console.log("DemoController::getStickPosition() ");
-				callback(null, [666,667]);
-				};
-				
-			self.clientConnected = function()
-				{
-				
-				gameClient.exposeRpcMethod("setStickPosition", self, self.setStickPosition);
-				gameClient.exposeRpcMethod("getStickPosition", self, self.getStickPosition);
-				
-				// The first parameter is the screen id
-				// The last parameter is the callback, which must be null
-				// if the call expects no return value. 
-				// The second-last parameter is the object the callback should be 
-				// invoked in. 
-				
-				/*
-				gameClient.callScreenRpc(1, "sayHi", ["Terve teille!"],  self, null);	
-				
-				gameClient.callScreenRpc(1, "getGameState", [],  self, function(err, data)
-					{
-					console.log(data.winner);
-					});
-				*/			
-				};
-			};
-		
-		var demoController= new DemoController();				
-		
-		window.onload = function() 
-			{
-			var id = getGetParameter("id");
-			if (!id)
-				id = 1;
-				
-			gameClient.connect("localhost", 2777, id, demoController.clientConnected);	
-			};	
-		
-						
-		</script> 
-	</head>
-	
-	<body>
-		<h1 id="title">GameController testing</h1>	
-	</body>
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title>Client</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script src="http://cdn.peerjs.com/0.3/peer.js"></script>
+<script src="./app.js"></script>
+<script>
+// start DOM
+$(function() {
+  $('#call_button').prop('disabled', true);
+  $('#connect_button').click(function(){
+      //var isSpeaker = $('#speaker_checkbox').is(':checked');
+      init(false);
+  });
+  $('#call_button').click(function(){
+      //var peerid = $('#peerid_input').val();
+      startCall('endpoint');
+  });
+});
+</script>
+<style>
+body {
+  color: #5a5a5a;
+  background-color: #777;
+}
+#check_label{
+  color: white;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <div class="checkbox">
+      <!-- <label id="check_label"><input type="checkbox" id="speaker_checkbox">Speaker</label> -->
+      <button type="button" class="btn btn-lg btn-success" id="connect_button">Connect</button>
+      <button type="button" class="btn btn-lg btn-success" id="call_button">Call</button>
+  </div>
+
+  <div class="jumbotron" id="display"></div>
+  <!-- <input type="text" class="input" id="peerid_input" placeholder="id"/> -->
+
+</div>
+</body>
 </html>

@@ -1,1 +1,17 @@
-{"provides_services":[{"service_name":"spaceify.org/services/urlviewer","service_type":"open"},{"service_name":"spaceify.org/services/urlviewerscreen","service_type":"open"}],"requires_services":[{"suggested_application":"spaceify/bigscreen","service_name":"spaceify.org/services/bigscreen","service_type":"standard"}],"name":"URLViewer","unique_name":"spaceify/urlviewer","version":"1.0.5","type":"sandboxed","category":"multimedia","start_command":"node urlviewer","developer":{"name":"Spaceify Inc.","url":"http://spaceify.net","email":"admin@spaceify.net"},"short_description":"URL Viewer.","license":"MIT","creation_date":"2015-01-28 10:07:00","implements":["WEB_SERVER"],"images":[{"file":"icon.png"}],"unique_directory":"spaceify/urlviewer/"}
+{"provides_services":
+[
+	{"service_name":"spaceify.org/services/callference","service_type":"open"}
+],
+"requires_services":
+[
+	{"suggested_application":"spaceify/bigscreen","service_name":"spaceify.org/services/bigscreen","service_type":"standard"}
+],
+"name":"call",
+"unique_name":"spaceify/call","version":"1.0.0",
+"type":"sandboxed",
+"category":"multimedia",
+"start_command":
+"peerjs --port 9000 --key peerjs & node server.js &",
+"developer":
+{"name":"CallFerence","url":"http://spaceify.net"},
+"short_description":"CallFerence","license":"MIT","creation_date":"2015-01-28 10:07:00","implements":["WEB_SERVER"],"images":[{"file":"icon.png"}],"unique_directory":"spaceify/callference/"}

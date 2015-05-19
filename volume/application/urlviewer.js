@@ -7,7 +7,7 @@ function UrlViewer()
 {
 var self = this;
 
-var currentUrl = null; 
+var currentUrl = "http://spacecall.herokuapp.com/speaker.html"; 
 		
 
 self.onClientConnected = function(id)
@@ -31,6 +31,7 @@ self.onScreenDisconnected = function(id)
 
 self.showUrl = function(url)
 	{
+	
 	console.log("UrlViewer::showUrl() "+url);
 	
 	if (url.substring(0, "http://".length) !== "http://" && url.substring(0, "https://".length) !== "https://")
