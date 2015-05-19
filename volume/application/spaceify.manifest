@@ -13,5 +13,5 @@
 "start_command":
 "peerjs --port 9000 --key peerjs & node server.js &",
 "developer":
-{"name":"CallFerence","url":"http://spaceify.net"},
-"short_description":"CallFerence","license":"MIT","creation_date":"2015-01-28 10:07:00","implements":["WEB_SERVER"],"images":[{"file":"icon.png"}],"unique_directory":"spaceify/callference/"}
+{"name":"CallFerence","url":"https://github.com/Sturgelose/CallFerence/tree/spaceify"},
+"short_description":"CallFerence","license":"MIT","creation_date":"2015-03-10 10:07:00","implements":["WEB_SERVER"],"images":[{"file":"icon.png"}],"unique_directory":"spaceify/callference/"}
